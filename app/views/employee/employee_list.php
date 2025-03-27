@@ -78,6 +78,48 @@
             background-color: #4CAF50;
             color: white;
         }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+                font-size: 14px;
+            }
+            th, td {
+                padding: 8px 10px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            th, td {
+                font-size: 12px;
+            }
+            .pagination a {
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            th, td {
+                padding: 6px 8px;
+            }
+            h2 {
+                font-size: 16px;
+            }
+            .pagination a {
+                padding: 4px 6px;
+                font-size: 10px;
+            }
+        }
     </style>
 </head>
 <body>
