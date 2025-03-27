@@ -14,12 +14,12 @@
         color: #343a40;
     }
     .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
+        background-color: #FF6F61;
+        border-color: #FF6F61;
     }
     .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #004085;
+        background-color: #E65C54;
+        border-color: #CC524B;
     }
 </style>
 <div class="container mt-5">

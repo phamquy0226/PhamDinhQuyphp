@@ -4,173 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông Tin Nhân Viên</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        h2 {
-            text-align: center;
-            margin-top: 20px;
-            color: #4CAF50;
-        }
-        table {
-            width: 90%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-            font-weight: 500;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        tr:hover {
-            background-color: #eafaf1;
-        }
-        img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-        a {
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: 500;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .pagination a {
-            margin: 0 5px;
-            text-decoration: none;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            color: #4CAF50;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .pagination a.active {
-            background-color: #4CAF50;
-            color: white;
-            border: 1px solid #4CAF50;
-        }
-        .pagination a:hover {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            table {
-                width: 100%;
-                font-size: 14px;
-            }
-            th, td {
-                padding: 8px 10px;
-            }
-            h2 {
-                font-size: 18px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-            th, td {
-                font-size: 12px;
-            }
-            .pagination a {
-                padding: 6px 8px;
-                font-size: 12px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            th, td {
-                padding: 6px 8px;
-            }
-            h2 {
-                font-size: 16px;
-            }
-            .pagination a {
-                padding: 4px 6px;
-                font-size: 10px;
-            }
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 <?php require_once 'app/views/shares/header.php'; ?>
-    <h2>THÔNG TIN NHÂN VIÊN</h2>
+<div class="container mt-5">
+    <h2 class="text-center text-primary mb-4">THÔNG TIN NHÂN VIÊN</h2>
     
-    <table>
-        <tr>
-            <th>Mã Nhân Viên</th>
-            <th>Tên Nhân Viên</th>
-            <th>Giới tính</th>
-            <th>Nơi Sinh</th>
-            <th>Tên Phòng</th>
-            <th>Lương</th>
-            <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin'): ?>
-                <th>Hành Động</th>
-            <?php endif; ?>
-        </tr>
-        
-        <?php foreach ($employees as $employee): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($employee['Ma_NV']); ?></td>
-                <td><?php echo htmlspecialchars($employee['Ten_NV']); ?></td>
-                <td>
-                    <?php
-                    if ($employee['Phai'] == 'NU') {
-                        echo '<img src="public/images/woman.png" alt="Woman">';
-                    } else {
-                        echo '<img src="public/images/man.png" alt="Man">';
-                    }
-                    ?>
-                </td>
-                <td><?php echo htmlspecialchars($employee['Noi_Sinh']); ?></td>
-                <td><?php echo htmlspecialchars($employee['Ten_Phong']); ?></td>
-                <td><?php echo htmlspecialchars($employee['Luong']); ?></td>
-                <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin'): ?>
-                    <td>
-                        <a href="index.php?controller=employee&action=edit&ma_nv=<?php echo $employee['Ma_NV']; ?>">Sửa</a> |
-                        <a href="index.php?controller=employee&action=delete&ma_nv=<?php echo $employee['Ma_NV']; ?>" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
-                    </td>
-                <?php endif; ?>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-                    
-    <div class="pagination">
-        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-            <a href="index.php?controller=employee&action=index&page=<?php echo $i; ?>" class="<?php echo $i == $page ? 'active' : ''; ?>">
-                <?php echo $i; ?>
-            </a>
-        <?php endfor; ?>
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th>Mã Nhân Viên</th>
+                    <th>Tên Nhân Viên</th>
+                    <th>Giới tính</th>
+                    <th>Nơi Sinh</th>
+                    <th>Tên Phòng</th>
+                    <th>Lương</th>
+                    <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin'): ?>
+                        <th>Hành Động</th>
+                    <?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($employees as $employee): ?>
+                    <tr>
+                        <td class="text-center"><?php echo htmlspecialchars($employee['Ma_NV']); ?></td>
+                        <td><?php echo htmlspecialchars($employee['Ten_NV']); ?></td>
+                        <td class="text-center">
+                            <?php
+                            if ($employee['Phai'] == 'NU') {
+                                echo '<img src="public/images/woman.png" alt="Woman" class="img-fluid rounded-circle border" style="width: 40px; height: 40px;">';
+                            } else {
+                                echo '<img src="public/images/man.png" alt="Man" class="img-fluid rounded-circle border" style="width: 40px; height: 40px;">';
+                            }
+                            ?>
+                        </td>
+                        <td><?php echo htmlspecialchars($employee['Noi_Sinh']); ?></td>
+                        <td><?php echo htmlspecialchars($employee['Ten_Phong']); ?></td>
+                        <td class="text-end"><?php echo number_format($employee['Luong'], 0, ',', '.'); ?> VND</td>
+                        <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin'): ?>
+                            <td class="text-center">
+                                <a href="index.php?controller=employee&action=edit&ma_nv=<?php echo $employee['Ma_NV']; ?>" class="btn btn-sm btn-warning me-1">
+                                    <i class="fas fa-edit"></i> Sửa
+                                </a>
+                                <a href="index.php?controller=employee&action=delete&ma_nv=<?php echo $employee['Ma_NV']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?')">
+                                    <i class="fas fa-trash-alt"></i> Xóa
+                                </a>
+                            </td>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
+    
+    <nav>
+        <ul class="pagination justify-content-center mt-4">
+            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                <li class="page-item <?php echo $i == $page ? 'active' : ''; ?>">
+                    <a class="page-link" href="index.php?controller=employee&action=index&page=<?php echo $i; ?>">
+                        <?php echo $i; ?>
+                    </a>
+                </li>
+            <?php endfor; ?>
+        </ul>
+    </nav>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>
